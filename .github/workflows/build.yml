@@ -7,6 +7,15 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /Users/runner/Library/Android
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/local/.ghcup
+          df -h /
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -27,7 +36,10 @@ jobs:
             -scheme "PX Downloader (macOS)" \
             -configuration Release \
             -derivedDataPath ./DerivedData \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            GCC_WARN_INHIBIT_ALL_WARNINGS=YES \
+            -quiet
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
