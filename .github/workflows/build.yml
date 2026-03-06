@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: 拉取代码
         uses: actions/checkout@v4
-      - name: 安装 Beep
+      - name: 安装 Bepp
         run: npm install -g @bepp/bepp
       - name: 构建 Safari Extension
-        run: beep build
+        run: bepp build
