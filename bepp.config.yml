@@ -1,0 +1,8 @@
+shared:
+  id: 'PX-Downloader-Safari'
+  input: 
+    chromium: './Chrome-Video-Downloader-Plugin'
+  output: './src'
+
+build:
+  - type: 'safari'

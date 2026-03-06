@@ -6,6 +6,10 @@
 .Spotlight-V100
 .Trashes
 
+# Windows
+desktop.ini
+Thumbs.db
+
 # Xcode / Safari Extension Build
 build/
 *.xcarchive

@@ -7,9 +7,18 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: 拉取代码
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: 安装 Bepp
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Bepp
         run: npm install -g @bepp/bepp
-      - name: 构建 Safari Extension
+      - name: Build Safari Extension
         run: bepp build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PX-Downloader-Safari
+          path: ./src/
