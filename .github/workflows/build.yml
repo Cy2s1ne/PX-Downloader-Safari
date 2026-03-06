@@ -9,16 +9,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - name: Install Bepp
-        run: npm install -g @bepp/bepp
-      - name: Build Safari Extension
-        run: bepp build
+
+      - name: Convert to Safari Web Extension
+        run: |
+          xcrun safari-web-extension-converter "${{ github.workspace }}" \
+            --project-location ./build \
+            --app-name "PX Downloader" \
+            --bundle-identifier com.pxdownloader.safari \
+            --swift \
+            --no-prompt \
+            --no-open
+
+      - name: Build with Xcode
+        run: |
+          cd "./build/PX Downloader"
+          xcodebuild -project "PX Downloader.xcodeproj" \
+            -scheme "PX Downloader (macOS)" \
+            -configuration Release \
+            -derivedDataPath ./DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: PX-Downloader-Safari
-          path: ./src/
+          path: ./build/PX Downloader/DerivedData/Build/Products/Release/
