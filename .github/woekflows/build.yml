@@ -1,0 +1,15 @@
+name: Build Safari Extension
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+      - name: 安装 Beep
+        run: npm install -g @beep/beep
+      - name: 构建 Safari Extension
+        run: beep build
